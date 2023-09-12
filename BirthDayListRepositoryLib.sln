@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthDayListRepositoryLib", "BirthDayListRepositoryLib\BirthDayListRepositoryLib.csproj", "{277EAD72-E2BE-440C-8011-1287DCAA054D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthDayListRepositoryLibTests", "BirthDayListRepositoryLibTests\BirthDayListRepositoryLibTests.csproj", "{EC874455-07C3-4F20-A177-FC26ECACD20E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{277EAD72-E2BE-440C-8011-1287DCAA054D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277EAD72-E2BE-440C-8011-1287DCAA054D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277EAD72-E2BE-440C-8011-1287DCAA054D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277EAD72-E2BE-440C-8011-1287DCAA054D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC874455-07C3-4F20-A177-FC26ECACD20E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC874455-07C3-4F20-A177-FC26ECACD20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC874455-07C3-4F20-A177-FC26ECACD20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC874455-07C3-4F20-A177-FC26ECACD20E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9DC99EB-480D-4DBF-96D3-BC325B682366}
+	EndGlobalSection
+EndGlobal
