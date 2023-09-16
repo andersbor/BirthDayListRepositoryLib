@@ -95,12 +95,12 @@ namespace BirthDayListRepositoryLib
             return person;
         }
 
-        public Person? Remove(Person person)
+        public Person? Remove(int id)
         {
-            Person? p = _persons.FirstOrDefault(p => p.Id == person.Id);
+            Person? p = _persons.FirstOrDefault(p => p.Id == id);
             if (p == null) return null;
-            _persons.Remove(person);
-            return person;
+            _persons.Remove(p);
+            return p;
         }
 
         public Person? Update(int id, Person data)

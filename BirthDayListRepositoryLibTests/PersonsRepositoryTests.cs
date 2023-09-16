@@ -15,7 +15,7 @@ namespace BirthDayListRepositoryLib.Tests
         [TestMethod()]
         public void GetTest()
         {
-            Assert.AreEqual(0, repo.Get().Count());
+            Assert.AreEqual(4, repo.Get().Count());
         }
 
         [TestMethod()]
@@ -30,9 +30,9 @@ namespace BirthDayListRepositoryLib.Tests
             Person p1 = new() { Name = "Thomas", BirthYear = 2006, BirthMonth = 7, BirthDayOfMonth = 7 };
             Person p2 = new() { Name = "Svend", BirthYear = 1942, BirthMonth = 12, BirthDayOfMonth = 30 };
             repo.Add(p1);
-            Assert.AreEqual(1, repo.Get().Count());
+            Assert.AreEqual(5, repo.Get().Count());
             repo.Add(p2);
-            Assert.AreEqual(2, repo.Get().Count());
+            Assert.AreEqual(6, repo.Get().Count());
         }
 
         [TestMethod()]
