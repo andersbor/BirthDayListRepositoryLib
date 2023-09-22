@@ -23,7 +23,7 @@ namespace BirthDayListRepositoryLib.Tests
         {
             List<Person> people = repo.Get(sortBy: "Next").ToList();
             Assert.AreEqual(4, people.Count);
-            Assert.AreEqual("Hans", people[0].Name);
+            Assert.AreEqual("John Smith", people[0].Name); // as of today !?
         }
 
         [TestMethod()]

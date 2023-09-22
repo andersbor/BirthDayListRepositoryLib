@@ -16,7 +16,7 @@ namespace BirthDayListRepositoryLib
         public PersonsRepository()
         {
             Add(new Person { Name = "Jane Doe", UserId = "anbo@zealand.dk", BirthYear = 1981, BirthMonth = 2, BirthDayOfMonth = 2 });
-            Add(new Person { Name = "John Smith", UserId = "anbo@zealand.dk", BirthYear = 1982, BirthMonth = 3, BirthDayOfMonth = 3 });
+            Add(new Person { Name = "John Smith", UserId = "anbo@zealand.dk", BirthYear = 1982, BirthMonth = 11, BirthDayOfMonth = 3 });
             Add(new Person { Name = "Hans", UserId = "anbo@zealand.dk", BirthYear = 2000, BirthMonth = 1, BirthDayOfMonth = 1, Remarks = "Hans is a nice guy" });
             Add(new Person { Name = "Jane Smith", UserId = "anbo@zealand.dk", BirthYear = 1983, BirthMonth = 4, BirthDayOfMonth = 4 });
         }
@@ -53,9 +53,15 @@ namespace BirthDayListRepositoryLib
                              if (montDifference != 0) return montDifference;
                              return p1.BirthDayOfMonth - p2.BirthDayOfMonth;
                          });
-                        //result = result.OrderBy(p => p.BirthMonth).ThenBy(p => p.BirthDayOfMonth);
-                        //Person? e = result.FirstOrDefault(p => p.BirthMonth >= DateTime.UtcNow.Month && p.BirthDayOfMonth >= DateTime.UtcNow.Day);
-
+                        //  reoder the list to put the next birthday first
+                        DateTime now = DateTime.Now;
+                        int month = now.Month;
+                        int dayOfMonth = now.Day;
+                        int index = result.FindIndex(p => p.BirthMonth > month || (p.BirthMonth == month && p.BirthDayOfMonth >= dayOfMonth));
+                        // Copilot: index is the index of the first person with a birthday after today
+                        List<Person> part1 = result.GetRange(index, result.Count() - index);
+                        List<Person> part2 = result.GetRange(0, index);
+                        result = part1.Concat(part2).ToList();                        
                         break;
                     default:
                         break; // do nothing
@@ -65,15 +71,6 @@ namespace BirthDayListRepositoryLib
             return result;
         }
 
-        private bool Between(int month1, int day1, int month2, int day2, int month3, int day3)
-        {
-            if (month1 < month2) return true;
-            if (month1 > month2) return false;
-            if (day1 <= day2) return true;
-            return false;
-        }
-
-
         private static int CompareDates(Person p1, Person p2)
         {
             return CompareDates(p1.BirthMonth, p1.BirthDayOfMonth, p2.BirthMonth, p2.BirthDayOfMonth);
@@ -82,6 +79,7 @@ namespace BirthDayListRepositoryLib
 
         private static int CompareDates(int month1, int dayOfMonth1, int month2, int dayOfMonth2)
         {
+            // TODO simpler version like Next
             if (month1 < month2) return -1;
             if (month1 > month2) return 1;
             if (dayOfMonth1 < dayOfMonth2) return -1;
