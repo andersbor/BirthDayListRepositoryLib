@@ -21,7 +21,9 @@ namespace BirthDayListRepositoryLib.Tests
         [TestMethod()]
         public void GetTest1()
         {
-          
+            List<Person> people = repo.Get(sortBy: "Next").ToList();
+            Assert.AreEqual(4, people.Count);
+            Assert.AreEqual("Hans", people[0].Name);
         }
 
         [TestMethod()]
@@ -38,13 +40,13 @@ namespace BirthDayListRepositoryLib.Tests
         [TestMethod()]
         public void RemoveTest()
         {
-       
+
         }
 
         [TestMethod()]
         public void UpdateTest()
         {
-         
+
         }
     }
 }

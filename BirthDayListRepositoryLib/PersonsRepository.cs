@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,45 +15,51 @@ namespace BirthDayListRepositoryLib
 
         public PersonsRepository()
         {
-            Add(new Person { Name = "Hans", UserId = "anbo@zealand.dk", BirthYear = 2000, BirthMonth = 1, BirthDayOfMonth = 1, Remarks = "Hans is a nice guy" });
             Add(new Person { Name = "Jane Doe", UserId = "anbo@zealand.dk", BirthYear = 1981, BirthMonth = 2, BirthDayOfMonth = 2 });
             Add(new Person { Name = "John Smith", UserId = "anbo@zealand.dk", BirthYear = 1982, BirthMonth = 3, BirthDayOfMonth = 3 });
+            Add(new Person { Name = "Hans", UserId = "anbo@zealand.dk", BirthYear = 2000, BirthMonth = 1, BirthDayOfMonth = 1, Remarks = "Hans is a nice guy" });
             Add(new Person { Name = "Jane Smith", UserId = "anbo@zealand.dk", BirthYear = 1983, BirthMonth = 4, BirthDayOfMonth = 4 });
         }
 
-        public IEnumerable<Person> Get(string? userId = null, string? sortBy = null, string? name = null)
+        public IEnumerable<Person> Get(string? userId = null, string? sortBy = null, string? nameFragment = null, int? ageBelow = null, int? ageAbove = null)
         {
-            IEnumerable<Person> result = new List<Person>(_persons);
-            if (userId != null) result = result.Where(p => p.UserId == null || p.UserId == userId).ToList();
-            if (name != null) result = result.Where(p => p.Name != null && p.Name.Contains(name));
+            List<Person> result = new List<Person>(_persons);
+            if (userId != null)
+                result = result.Where(p => p.UserId == null || p.UserId == userId).ToList();
+            if (nameFragment != null)
+                result = result.Where(p => p.Name != null && p.Name.Contains(nameFragment)).ToList();
+            if (ageBelow != null)
+                result = result.Where(p => p.Age <= ageBelow).ToList();
+            if (ageAbove != null)
+                result = result.Where(p => p.Age >= ageAbove).ToList();
             if (sortBy != null)
             {
                 sortBy = sortBy.ToLower();
                 switch (sortBy)
                 {
                     case "name":
-                        result = result.OrderBy(p => p.Name);
+                        result = result.OrderBy(p => p.Name).ToList();
                         break;
                     case "age":
-                        result = result.OrderBy(p => p.Age);
+                        result = result.OrderBy(p => p.Age).ToList();
                         break;
                     case "birthday":
-                        result.ToList().Sort((p1, p2) => CompareDates(p1, p2));
+                        result.Sort((p1, p2) => CompareDates(p1, p2));
                         break;
-                        /*case "next":
+                    case "next":
+                        result.Sort((p1, p2) =>
+                         {
+                             int montDifference = p1.BirthMonth - p2.BirthMonth;
+                             if (montDifference != 0) return montDifference;
+                             return p1.BirthDayOfMonth - p2.BirthDayOfMonth;
+                         });
+                        //result = result.OrderBy(p => p.BirthMonth).ThenBy(p => p.BirthDayOfMonth);
+                        //Person? e = result.FirstOrDefault(p => p.BirthMonth >= DateTime.UtcNow.Month && p.BirthDayOfMonth >= DateTime.UtcNow.Day);
 
-                            DateTime now = DateTime.UtcNow;
-                            int nowMonth = now.Month;
-                            int nowDayOfMonth = now.Day;
+                        break;
+                    default:
+                        break; // do nothing
 
-                            result.Order((p1, p2) => p1.BirthMonth - p2.BirthMonth);
-                            //result = result.OrderBy(p => p.BirthMonth).ThenBy(p => p.BirthDayOfMonth);
-                            //Person? e = result.FirstOrDefault(p => p.BirthMonth >= DateTime.UtcNow.Month && p.BirthDayOfMonth >= DateTime.UtcNow.Day);
-
-                            break;
-                        default:
-                            break; // do nothing
-                            */
                 }
             }
             return result;
