@@ -42,6 +42,7 @@ namespace BirthDayListRepositoryLib
         {
             if (Name == null) throw new ArgumentNullException("Name is null");
             if (Name == "") throw new ArgumentException("Name is empty");
+            if (UserId == null) throw new ArgumentNullException("UserId is null");
             new DateTime(BirthYear, BirthMonth, BirthDayOfMonth); // may throw ArgumentOutOfRangeException
             // https://learn.microsoft.com/en-us/dotnet/api/system.datetime.-ctor?view=net-7.0#system-datetime-ctor(system-int32-system-int32-system-int32)
         }
